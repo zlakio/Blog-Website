@@ -22,7 +22,7 @@ export default async function Home(){
               <h2 className="text-3xl font-bold">{post.title}</h2>
               <p className="text-gray-600">{post.Excerpt}</p>
               <div className="flex gap-3">
-                <Link href="/blog/{post.slug}">Read more</Link>
+                <Link href={`/blog/${post.slug}`}>Read more</Link>
               </div>
             </div>
             
