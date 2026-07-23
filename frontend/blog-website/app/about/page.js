@@ -7,9 +7,9 @@ export default function About(){
         I like building things and this whole website is basically a personal diary
       </p>
       <ul className="flex gap-3 flex-wrap">
-        <li className="bg-gray-800 px-3 py-1 rouned">Python</li>
-        <li className="bg-gray-800 px-3 py-1 rouned">Flask</li>
-        <li className="bg-gray-800 px-3 py-1 rouned">Next.js</li>
+        <li className="bg-gray-800 px-3 py-5 ">Python</li>
+        <li className="bg-gray-800 px-3 py-5 ">Flask</li>
+        <li className="bg-gray-800 px-3 py-5 ">Next.js</li>
       </ul>
       <div className="flex gap-2 flex-wrap">
         <Link href="https://github.com/zlakio">github</Link>
