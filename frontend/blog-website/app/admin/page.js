@@ -13,7 +13,7 @@ export default function Admin(){
 
   useEffect(() => {
   if (isLoggedIn) {
-    fetch('http://localhost:5000/api/posts')
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts`)
       .then(res => res.json())
       .then(data => setPosts(data))
   }
@@ -21,7 +21,7 @@ export default function Admin(){
   async function handleLogin(e) {
     
     e.preventDefault()
-    const res = await fetch('http://localhost:5000/api/auth/login', {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username, password })
@@ -36,7 +36,7 @@ export default function Admin(){
   async function handleCreatePost(e) {
     e.preventDefault()
     
-    const res = await fetch('http://localhost:5000/api/posts',{
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts`,{
       method : 'POST',
       headers : {'Content-Type' :'application/json'},
       body : JSON.stringify({title,content,excerpt})
@@ -53,7 +53,7 @@ export default function Admin(){
   }
   }
   async function handleDelete(id) {
-  await fetch(`http://localhost:5000/api/posts/${id}`, {
+  await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts/${id}`, {
     method: 'DELETE'
   })
   setPosts(posts.filter(post => post.id !== id))

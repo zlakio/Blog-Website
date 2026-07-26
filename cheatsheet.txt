@@ -1,0 +1,145 @@
+# My React / Next.js Cheat Sheet
+
+A collection of patterns I've actually used and understood. When I'm unsure "where do I use what" — check here first.
+
+---
+
+## 1. Remembering something that changes (`useState`)
+
+Use this when: I need to track a value that changes over time — a form input, a login status, a list of data.
+
+```javascript
+const [username, setUsername] = useState('')       // text
+const [isLoggedIn, setIsLoggedIn] = useState(false) // true/false
+const [posts, setPosts] = useState([])              // a list
+```
+
+- First value = current value
+- Second value = function to update it
+- Whatever is inside `useState(...)` is the starting value
+
+---
+
+## 2. Running code automatically (`useEffect`)
+
+Use this when: I need something to happen automatically — like fetching data when the page loads, or when a specific state changes.
+
+```javascript
+useEffect(() => {
+  if (isLoggedIn) {
+    fetch('http://localhost:5000/api/posts')
+      .then(res => res.json())
+      .then(data => setPosts(data))
+  }
+}, [isLoggedIn])
+```
+
+- The `[isLoggedIn]` at the end = "only re-run this when `isLoggedIn` changes"
+- `[]` (empty) = "only run once, when the page first loads"
+
+---
+
+## 3. Talking to my Flask backend (`fetch`)
+
+**GET (just reading data):**
+```javascript
+const res = await fetch('http://localhost:5000/api/posts')
+const data = await res.json()
+```
+
+**POST / PUT / DELETE (sending data):**
+```javascript
+const res = await fetch('http://localhost:5000/api/posts', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ title, content, excerpt })
+})
+const data = await res.json()
+
+if (res.ok) {
+  // success
+} else {
+  // handle error, e.g. data.error
+}
+```
+
+---
+
+## 4. Showing a list of things (`.map()`)
+
+Use this when: I have an array of data (posts, users, anything) and need to display each item.
+
+```javascript
+{posts.map(post => (
+  <div key={post.id}>
+    <span>{post.title}</span>
+  </div>
+))}
+```
+
+- Always needs a `key` — usually the unique id
+- `post` here is just a name I chose for "each item in the array"
+
+---
+
+## 5. Showing/hiding something conditionally
+
+**Option A — early return (whole different UI):**
+```javascript
+if (isLoggedIn) {
+  return <PostEditor />
+}
+return <LoginForm />
+```
+
+**Option B — inline (small piece of UI):**
+```javascript
+{message && <p className="text-green-400">{message}</p>}
+```
+This only renders the `<p>` if `message` is not empty/falsy.
+
+---
+
+## 6. Updating state when the user types (controlled inputs)
+
+Use this when: I have an input/textarea that needs to stay in sync with state.
+
+```javascript
+<input
+  type="text"
+  value={title}
+  onChange={(e) => setTitle(e.target.value)}
+  placeholder="Title"
+/>
+```
+
+- `value={title}` → input always shows what's in state
+- `onChange` → runs on every keystroke, updates state with what was typed
+
+---
+
+## 7. Handling a form submit
+
+```javascript
+async function handleLogin(e) {
+  e.preventDefault()   // stops the page from reloading
+  // fetch logic here
+}
+
+<form onSubmit={handleLogin}>
+  ...
+</form>
+```
+
+---
+
+## Debugging notes to remember
+
+- **"Failed to fetch"** → usually means the Flask server isn't running, or crashed. Check that terminal first.
+- **Blank page / weird stale behavior** → clear the Next.js cache:
+  ```
+  rmdir /s /q .next
+  npm run dev
+  ```
+- **Every `{` needs exactly one matching `}`** — when something breaks with no clear error, count braces first.
+- **JS is case-sensitive** — `post.Content` and `post.content` are two different things. Match whatever key name the Flask API actually returns.

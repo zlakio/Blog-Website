@@ -1,5 +1,5 @@
 async function getPost(slug) {
-  const res = await fetch(`http://localhost:5000/api/posts/${slug}`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts/${slug}`)
   const data = await res.json()
   return data
   
