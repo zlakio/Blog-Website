@@ -45,6 +45,8 @@ def create_post():
     slug = slugify(title)
     content = data.get("content")
     excerpt = data.get("excerpt")
+    if not title or not content or not excerpt:
+        return jsonify({"error": "Title, content, and excerpt are required"}), 400
     new_post = Post(title=title, content=content, excerpt=excerpt, slug=slug)
     db.session.add(new_post)
     db.session.commit()

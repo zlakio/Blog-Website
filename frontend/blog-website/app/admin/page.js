@@ -10,12 +10,18 @@ export default function Admin(){
   const [excerpt, setExcerpt] = useState('')
   const [message, setMessage] = useState('')
   const [posts, setPosts] = useState([])
+  const[isLoading,setIsLoading] =useState(false)
 
   useEffect(() => {
   if (isLoggedIn) {
+    setIsLoading(true)
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts`)
       .then(res => res.json())
-      .then(data => setPosts(data))
+      .then(data => {setPosts(data)
+
+        setIsLoading(false)
+      })
+      
   }
 }, [isLoggedIn])
   async function handleLogin(e) {
@@ -62,7 +68,10 @@ export default function Admin(){
 if (isLoggedIn){
   return(
     <form onSubmit={handleCreatePost} className="flex flex-col gap-4 max-w-sm mx-auto mt-16">
-      <div className="flex flex-col gap-3 mt-8">
+{isLoading ? (
+  <p className="text-gray-400">Loading posts...</p>
+) : (
+        <div className="flex flex-col gap-3 mt-8">
   {posts.map(post => (
     <div key={post.id} className="flex justify-between items-center border border-neutral-700 px-4 py-2 rounded">
       <span>{post.title}</span>
@@ -72,6 +81,8 @@ if (isLoggedIn){
     </div>
   ))}
 </div>
+)}
+
       {message && <p className="text-green-400">{message}</p>}
       <input type="text" value={title} onChange={(e)=>setTitle(e.target.value)} placeholder="Title" className="border border-neutral-900 text-white px-3 py-2 rounded"/>
       <textarea value={content} onChange={(e) => setContent(e.target.value)} placeholder="Content" className="border border-neutral-700 bg-neutral-900 text-white px-3 py-2 rounded"/>

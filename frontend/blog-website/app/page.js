@@ -15,7 +15,9 @@ export default async function Home(){
         <div className="flex gap-4"><Link href="https://github.com/zlakio">github</Link>
         <Link href="https://www.linkedin.com/in/mohd-mutasim-shaik-81a962315/">linkedin</Link></div>
         <>
-          {
+        {posts.length===0 ?(
+          <p className="text-gray-400">No posts yet. Check back soon !</p>
+        ):(
           posts.map((post) => (
             
               <div key={post.id}>
@@ -27,7 +29,7 @@ export default async function Home(){
             </div>
             
           ))
-        }
+        )}
         </>
       </section>
     </main>
