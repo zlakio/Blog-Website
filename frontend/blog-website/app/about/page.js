@@ -1,8 +1,8 @@
 import Link from "next/link";
 export default function About(){
   return(
-    <div>
-      <h1 className="text-gray-100 text-4xl">I am Zlakio</h1>
+    <div className="max-w-3xl mx-auto px-4 py-16 flex flex-col gap-4">
+      <h1 className="text-4xl font-bold text-gray-100">I am Zlakio</h1>
       <p className="text-xl text-gray-400">
         I like building things and this whole website is basically a personal diary
       </p>
@@ -11,10 +11,10 @@ export default function About(){
         <li className="bg-gray-800 px-3 py-5 ">Flask</li>
         <li className="bg-gray-800 px-3 py-5 ">Next.js</li>
       </ul>
-      <div className="flex gap-2 flex-wrap">
-        <Link href="https://github.com/zlakio">github</Link>
+      <div className="flex gap-4 ">
+        <Link href="https://github.com/zlakio" className="px-4 py-2 bg-neutral-800 rounded-lg hover:bg-neutral-700 transition">github</Link>
         
-        <Link href="https://www.linkedin.com/in/mohd-mutasim-shaik-81a962315/">linkedIn</Link>
+        <Link href="https://www.linkedin.com/in/mohd-mutasim-shaik-81a962315/" className="px-4 py-2 bg-neutral-800 rounded-lg hover:bg-neutral-700 transition">linkedIn</Link>
 
       </div>
     </div>

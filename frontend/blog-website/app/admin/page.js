@@ -67,7 +67,8 @@ export default function Admin(){
 
 if (isLoggedIn){
   return(
-    <form onSubmit={handleCreatePost} className="flex flex-col gap-4 max-w-sm mx-auto mt-16">
+    <main className="max-w-3xl mx-auto px-4 py-16">
+      <form onSubmit={handleCreatePost} className="flex flex-col gap-4 max-w-sm mx-auto mt-16">
 {isLoading ? (
   <p className="text-gray-400">Loading posts...</p>
 ) : (
@@ -89,16 +90,17 @@ if (isLoggedIn){
       <input type="text" value={excerpt} onChange={(e) => setExcerpt(e.target.value)} placeholder="Excerpt" className="border border-neutral-700 bg-neutral-900 text-white px-3 py-2 rounded"/>
       <button type="submit" className="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 transition">Publish</button>
     </form>
-
+    </main>
   )
 }
 
 return(
-  <form onSubmit={handleLogin} className="flex flex-col gap-4 max-w-sm mx-auto mt-16">
-    <input type="text" value={username} onChange={(e)=>setUsername(e.target.value)} className="border border-neutral-700 bg-neutral-900 text-white px-3 py-2 rounded" placeholder="Username"/>
-    <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)} className="border border-neutral-700 bg-neutral-900 text-white px-3 py-2 rounded" placeholder="Password"/>
-    <button type="submit" className="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 transition">Login</button>
-  </form>
-
+  <main className="max-w-3xl mx-auto px-4 py-16">
+    <form onSubmit={handleLogin} className="flex flex-col gap-4 max-w-sm mx-auto">
+      <input type="text" value={username} onChange={(e)=>setUsername(e.target.value)} className="border border-neutral-700 bg-neutral-900 text-white px-3 py-2 rounded" placeholder="Username"/>
+      <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)} className="border border-neutral-700 bg-neutral-900 text-white px-3 py-2 rounded" placeholder="Password"/>
+      <button type="submit" className="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 transition">Login</button>
+    </form>
+  </main>
 )
 }

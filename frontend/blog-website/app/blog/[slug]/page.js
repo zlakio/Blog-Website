@@ -12,14 +12,14 @@ export default async function BlogPost({params}) {
   return (
     <main className="max-w-3xl mx-auto px-4 py-16">
       <section className="flex flex-col gap-4">
-        <h2>
+        <h1 className="text-4xl font-bold">
           {post.title}
-        </h2>
-        <p className="text-gray-600">
-          {post.Content}
-          {post["Created at"]}
-
-        </p>
+        </h1>
+        <div className="flex flex-col gap-4">
+    
+          <p className="text-sm text-gray-500">{post["Created at"]}</p>
+          <p className="text-gray-300 leading-relaxed">{post.Content}</p>
+        </div>
       </section>
     </main>
   )

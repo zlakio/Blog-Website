@@ -1,5 +1,8 @@
+'use client'
 import Link from 'next/link'
+import { usePathname } from "next/navigation"
 export default function Navbar(){
+    const pathname = usePathname()
     return(
         <nav className="flex justify-between items-center p-4 sticky top-0 border-b border-neutral-800 backdrop-blur">
             <p>My Blog</p>
