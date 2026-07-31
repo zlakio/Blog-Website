@@ -1,10 +1,17 @@
 # entry point where flask starts
+import os
+
+from dotenv import load_dotenv
 from extensions import db
 from flask import Flask, redirect, render_template, request, session
 from flask_cors import CORS
 from routes import main_bp
 
 app = Flask(__name__)
+load_dotenv()
+
+FRONTEND_URL = os.getenv("FRONTEND_URL")
+app.config["FRONTEND_URL"] = FRONTEND_URL
 
 app.config["SQLALCHEMY_DATABASE_URI"] = (
     "sqlite:///project.db"  # use SQLite (the /// means local file, not a remote server) and database file will be called project.db
@@ -14,7 +21,7 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = (
 )
 app.config["SECRET_KEY"]
 app.config["SECRET_KEY"] = "x7k2p9m4q1w8"
-CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
+CORS(app, resources={r"/api/*": {"origins": FRONTEND_URL}})
 
 db.init_app(
     app
