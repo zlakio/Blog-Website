@@ -1,6 +1,8 @@
 import Link from "next/link";
 async function getPosts() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts`, {
+  cache: 'no-store'
+})
   const data = await res.json()
     console.log("data", data)
   return data
