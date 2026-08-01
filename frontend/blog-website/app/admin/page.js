@@ -51,6 +51,9 @@ export default function Admin(){
     console.log(data)
     if (res.ok) {
     setMessage('Post published successfully!')
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts`, { cache: 'no-store' })
+  .then(res => res.json())
+  .then(data => setPosts(data))
     setTitle('')
     setContent('')
     setExcerpt('')
