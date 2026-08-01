@@ -19,7 +19,6 @@ app.config["SQLALCHEMY_DATABASE_URI"] = (
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = (
     False  # sql doesnt look for changes if it was true it would have looked for changes, set it true if really required otherwise it is just noise
 )
-app.config["SECRET_KEY"]
 app.config["SECRET_KEY"] = "x7k2p9m4q1w8"
 CORS(app, resources={r"/api/*": {"origins": FRONTEND_URL}})
 
