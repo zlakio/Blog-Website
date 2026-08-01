@@ -4,7 +4,7 @@ export default function About(){
     <div className="max-w-3xl mx-auto px-4 py-16 flex flex-col gap-4">
       <h1 className="text-4xl font-bold text-gray-100">I am Zlakio</h1>
       <p className="text-xl text-gray-400">
-        I like building things and this whole website is basically a personal diary
+        Using this as a Platform where i can track my progress
       </p>
       <ul className="flex gap-3 flex-wrap">
         <li className="bg-gray-800 px-3 py-5 ">Python</li>

@@ -13,7 +13,7 @@ export default async function Home(){
     <main className="max-w-3xl mx-auto px-4 py-16">
       <section className="flex flex-col gap-4">
         <h1 className="text-4xl font-bold">Hii, I am Zlakio</h1>
-        <p className="text-xl text-gray-400">I love to build</p>
+        <p className="text-xl text-gray-400">Below are my socials</p>
         <div className="flex gap-4"><Link href="https://github.com/zlakio" className="px-4 py-2 bg-neutral-800 rounded-lg hover:bg-neutral-700 tran">github</Link>
         <Link href="https://www.linkedin.com/in/mohd-mutasim-shaik-81a962315/" className="px-4 py-2 bg-neutral-800 rounded-lg hover:bg-neutral-700 transition">linkedin</Link></div>
         <>
