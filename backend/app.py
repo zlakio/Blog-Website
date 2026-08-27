@@ -13,9 +13,11 @@ load_dotenv()
 FRONTEND_URL = os.getenv("FRONTEND_URL")
 app.config["FRONTEND_URL"] = FRONTEND_URL
 
-app.config["SQLALCHEMY_DATABASE_URI"] = (
-    "sqlite:///project.db"  # use SQLite (the /// means local file, not a remote server) and database file will be called project.db
-)
+
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///project.db")
+app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL
+
+
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = (
     False  # sql doesnt look for changes if it was true it would have looked for changes, set it true if really required otherwise it is just noise
 )
