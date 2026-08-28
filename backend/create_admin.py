@@ -10,6 +10,10 @@ ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD")
 app.config["ADMIN_PASSWORD"] = ADMIN_PASSWORD
 
 with app.app_context():
+    existing = Admin.query.filter_by(username="Zlakio").first()
+    if existing:
+        db.session.delete(existing)
+        db.session.commit()
     admin = Admin()
     admin.username = "Zlakio"
     password = ADMIN_PASSWORD
