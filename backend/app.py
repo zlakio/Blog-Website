@@ -30,7 +30,8 @@ db.init_app(
 app.register_blueprint(main_bp)  # used to import the blueprint we made with app
 
 
+with app.app_context():
+    db.create_all()
+
 if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()  # creates the tables within the application context
     app.run(debug=True)
