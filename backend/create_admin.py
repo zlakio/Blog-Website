@@ -15,6 +15,6 @@ with app.app_context():
     password = ADMIN_PASSWORD
     byte = password.encode("utf-8")
     salt = bcrypt.gensalt()
-    admin.password_hash = bcrypt.hashpw(byte, salt)
+    admin.password_hash = bcrypt.hashpw(byte, salt).decode("utf-8")
     db.session.add(admin)
     db.session.commit()
