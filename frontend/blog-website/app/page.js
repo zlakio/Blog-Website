@@ -18,7 +18,7 @@ export default async function Home(){
         <Link href="https://www.linkedin.com/in/mohd-mutasim-shaik-81a962315/" className="px-4 py-2 bg-neutral-800 rounded-lg hover:bg-neutral-700 transition">linkedin</Link></div>
         <>
         {posts.length===0 ?(
-          <p className="text-gray-400">No posts yet. Check back soon !</p>
+          <p className="text-gray-400">No posts yet. Check back soon!</p>
         ):(
           posts.map((post) => (
             

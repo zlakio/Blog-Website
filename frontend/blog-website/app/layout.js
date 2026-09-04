@@ -19,7 +19,7 @@ const cabinetGrotesk = localFont({
 });
 
 export const metadata = {
-  title: "Your Name | Blog",
+  title: "Zlakio | Blog",
   description: "A blog about my projects and learnings",
 };
 
