@@ -1,4 +1,6 @@
 # where your API endpoints will live
+from functools import wraps
+
 import bcrypt
 import sqlalchemy as sa
 from extensions import db
@@ -7,6 +9,16 @@ from models import Admin, Post
 from slugify import slugify
 
 main_bp = Blueprint("main", __name__, url_prefix="/api")
+
+
+def login_required(view_func):
+    @wraps(view_func)
+    def wrapped(*args, **kwargs):
+        if not session.get("admin"):
+            return jsonify({"error": "Authentication required"}), 401
+        return view_func(*args, **kwargs)
+
+    return wrapped
 
 
 @main_bp.route("/posts")
@@ -37,6 +49,7 @@ def get_post(slug):
 
 
 @main_bp.route("/posts", methods=["POST"])
+@login_required
 def create_post():
     data = request.get_json()
     if not data:
@@ -54,6 +67,7 @@ def create_post():
 
 
 @main_bp.route("/posts/<id>", methods=["PUT"])
+@login_required
 def update_post(id):
     data = request.get_json()
     post = db.session.execute(sa.select(Post).filter_by(id=id)).scalar()
@@ -68,6 +82,7 @@ def update_post(id):
 
 
 @main_bp.route("/posts/<id>", methods=["DELETE"])
+@login_required
 def delete_post(id):
     post = db.session.execute(sa.select(Post).filter_by(id=id)).scalar()
     if post is None:

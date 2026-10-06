@@ -1,13 +1,33 @@
 async function getPost(slug) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts/${slug}`)
-  const data = await res.json()
-  return data
-  
+  try {
+    const controller = new AbortController()
+    const timeout = setTimeout(() => controller.abort(), 8000)
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts/${slug}`, {
+      next: { revalidate: 60 },
+      signal: controller.signal,
+    })
+    clearTimeout(timeout)
+
+    if (!res.ok) return null
+    return await res.json()
+  } catch (err) {
+    console.error("Error fetching post:", err)
+    return null
+  }
 }
 
 export default async function BlogPost({params}) {
   const{slug} = await params
   const post = await getPost(slug)
+
+  if (!post) {
+    return (
+      <main className="max-w-3xl mx-auto px-4 py-16">
+        <p className="text-gray-400">Sorry, this post couldn&apos;t be loaded.</p>
+      </main>
+    )
+  }
 
   return (
     <main className="max-w-3xl mx-auto px-4 py-16">

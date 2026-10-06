@@ -1,11 +1,25 @@
 import Link from "next/link";
 async function getPosts() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts`, {
-  cache: 'no-store'
-})
-  const data = await res.json()
-    console.log("data", data)
-  return data
+  try {
+    const controller = new AbortController()
+    const timeout = setTimeout(() => controller.abort(), 8000)
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts`, {
+      // revalidate every 60s instead of hitting the backend on every request
+      next: { revalidate: 60 },
+      signal: controller.signal,
+    })
+    clearTimeout(timeout)
+
+    if (!res.ok) {
+      console.error("Failed to fetch posts:", res.status)
+      return []
+    }
+    return await res.json()
+  } catch (err) {
+    console.error("Error fetching posts:", err)
+    return []
+  }
 }
 export default async function Home(){
   const posts = await getPosts()

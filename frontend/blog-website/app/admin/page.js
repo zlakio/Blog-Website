@@ -15,7 +15,7 @@ export default function Admin(){
   useEffect(() => {
   if (isLoggedIn) {
     setIsLoading(true)
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts`, { credentials: 'include' })
       .then(res => res.json())
       .then(data => {setPosts(data)
 
@@ -30,6 +30,7 @@ export default function Admin(){
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
     body: JSON.stringify({ username, password })
   })
     const data = await res.json()
@@ -45,13 +46,14 @@ export default function Admin(){
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts`,{
       method : 'POST',
       headers : {'Content-Type' :'application/json'},
+      credentials: 'include',
       body : JSON.stringify({title,content,excerpt})
     })
     const data = await res.json()
     console.log(data)
     if (res.ok) {
     setMessage('Post published successfully!')
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts`, { cache: 'no-store' })
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts`, { cache: 'no-store', credentials: 'include' })
   .then(res => res.json())
   .then(data => setPosts(data))
     setTitle('')
@@ -63,7 +65,8 @@ export default function Admin(){
   }
   async function handleDelete(id) {
   await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts/${id}`, {
-    method: 'DELETE'
+    method: 'DELETE',
+    credentials: 'include'
   })
   setPosts(posts.filter(post => post.id !== id))
 }
